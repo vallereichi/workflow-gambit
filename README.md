@@ -6,12 +6,13 @@ In order to run GAMBIT scans on raven, I resorted to using the docker image prov
 since compiling the software itself on the HPC did not succeed. Using the docker image comes with the caveat, that you have
 to run it with apptainer since Docker itself would require sudo privileges. Luckily, creating the corresponding ```.sif```
 file is relatively easy when following the instructions from the
-[Apptainer Quickstart Guide]{'https://apptainer.org/docs/user/latest/quick_start.html'}.
+[Apptainer Quickstart Guide]('https://apptainer.org/docs/user/latest/quick_start.html').
 
 Once the ```.sif``` file is obtained a scan can be started with slurm from the slurm batch script ```apptainer.sh```
 with the following command:
 
 ```
+mkdir -p runs
 sbatch slurm.sh yaml_files/FS_MSSM7.yaml
 ```
 
