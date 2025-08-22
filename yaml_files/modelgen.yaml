@@ -1,0 +1,100 @@
+Parameters:
+  MSSM19atQ:
+
+
+    Qin: 2000
+    SignMu: 1
+    TanBeta: 57.864803
+
+    mHu2: -3.847125e+07
+    mHd2: 5.708344e+05
+    M1: 1000
+    M2: 1148.330637
+    M3: 1000
+
+    mq2_12: 10000
+    mq2_3: 4000
+
+    ml2_12: 10000
+    ml2_3: 10000
+
+    md2_12: 10000
+    md2_3: 4000
+
+    mu2_12: 10000
+    mu2_3: 4000
+
+    me2_12: 10000
+    me2_3: 10000
+
+    Ae_3: 1000
+    Ad_3: -100.871772
+    Au_3: -254.530545
+
+Priors:
+ObsLikes:
+  - purpose: Observable
+    capability: MSSM_spectrum
+    type: map_str_dbl
+
+  - purpose: Observable
+    capability: muon_gm2
+
+  - purpose: LogLike
+    capability: lnL_gm2
+
+Rules:
+
+  - capability: unimproved_MSSM_spectrum
+    type: Spectrum
+    function: get_MSSM_spectrum_from_SLHAfile
+    options:
+      filenames: "include/modelgen_spheno.slha"
+
+  - capability: MSSM_spectrum
+    type: Spectrum
+    function: make_MSSM_precision_spectrum_none
+
+  - capability: muon_gm2
+    function: GM2C_SUSY
+
+  - capability: muon_gm2_SM
+    function: gm2_SM_ee
+
+Printer:
+
+  printer: hdf5
+  options:
+    group: "/MSSM"
+    output_file: "modelgen_lh.hdf5"
+    delete_file_on_restart: true
+
+Scanner:
+
+  use_scanner: random
+  scanners:
+    de:
+      plugin: diver
+      like: LogLike
+      NP: 10
+      convthresh: 1e-3
+      maxgen: 100
+      verbosity: 3
+
+    random:
+      plugin: random
+      like: LogLike
+      point_number: 1
+      verbosity: 3
+
+KeyValues:
+
+  dependency_resolution:
+    prefer_model_specific_functions: true
+
+  likelihood:
+    model_invalid_for_lnlike_below: -1e6
+
+  default_output_path: "runs/modelgen_lh/"
+
+  debug: true
