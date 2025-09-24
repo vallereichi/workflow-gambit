@@ -6,17 +6,16 @@ Parameters:
   MSSM7atQ:
     Qin:
       fixed_value: 1000.0
-    SignMu:
-      fixed_value: 1
+    SignMu: [-1.0, 1.0]
     Ad_3:
-      prior_type: double_log_flat_join
-      ranges: [-1e4, -1e2, 1e2, 1e4]
+      prior_type: flat
+      range: [-1e3, 1e3]
     Au_3:
-      prior_type: double_log_flat_join
-      ranges: [-1e4, -1e2, 1e2, 1e4]
+      prior_type: flat
+      range: [-1e3, 1e3]
     M2:
-      prior_type: double_log_flat_join
-      ranges: [-1e4, -1e2, 1e2, 1e4]
+      prior_type: flat
+      range: [-1e3, 1e3]
     TanBeta:
       prior_type: flat
       range: [3.0, 70.0]
@@ -27,8 +26,8 @@ Parameters:
       prior_type: flat
       range: [-3e6, 1000]
     mf2:
-      prior_type: double_log_flat_join
-      ranges: [0, 0, 1e4, 1e7]
+      prior_type: flat
+      range: [0, 1e5]
 
 
 Priors:
@@ -49,7 +48,7 @@ Scanner:
       like: LogLike
       NP: 1000
       convthresh: 1e-3
-      maxgen: 1000
+      maxgen: 10000
       verbosity: 3
 
     random:
@@ -136,7 +135,6 @@ Logger:
     [Printers]: "printer.log"
     [PrecisionBit]: "prec_bit.log"
     [SpecBit]: "spec_bit.log"
-    [SPheno]: "spheno.log"
 
 KeyValues:
   dependency_resolution:

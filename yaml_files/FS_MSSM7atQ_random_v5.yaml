@@ -6,30 +6,28 @@ Parameters:
   MSSM7atQ:
     Qin:
       fixed_value: 1000.0
-    SignMu:
-      fixed_value: 1
+    SignMu: [-1.0, 1.0]
     Ad_3:
-      prior_type: double_log_flat_join
-      ranges: [-1e4, -1e2, 1e2, 1e4]
-    Au_3:
-      prior_type: double_log_flat_join
-      ranges: [-1e4, -1e2, 1e2, 1e4]
-    M2:
-      prior_type: double_log_flat_join
-      ranges: [-1e4, -1e2, 1e2, 1e4]
-    TanBeta:
-      range: [3.0, 70.0]
       prior_type: flat
+      range: [-1e3, 1e3]
+    Au_3:
+      prior_type: flat
+      range: [-1e3, 1e3]
+    M2:
+      prior_type: flat
+      range: [-1e3, 1e3]
+    TanBeta:
+      prior_type: flat
+      range: [3.0, 70.0]
     mHd2:
-      prior_type: double_log_flat_join
-      ranges: [-1e8, -1e4, 1e4, 1e8]
+      prior_type: flat
+      range: [-1000, 3e6]
     mHu2:
-      prior_type: double_log_flat_join
-      ranges: [-1e8, -1e4, 1e4, 1e8]
+      prior_type: flat
+      range: [-3e6, 1000]
     mf2:
-      prior_type: double_log_flat_join
-      ranges: [0, 0, 1e4, 1e8]
-
+      prior_type: flat
+      range: [0, 1e5]
 
 
 Priors:
@@ -48,9 +46,9 @@ Scanner:
     de:
       plugin: diver
       like: LogLike
-      NP: 10
+      NP: 1000
       convthresh: 1e-3
-      maxgen: 100
+      maxgen: 1000
       verbosity: 3
 
     random:
@@ -65,57 +63,45 @@ ObsLikes:
     capability: MSSM_spectrum
     type: map_str_dbl
 
-  - purpose: Observable
-    capability: muon_gm2
+  # - purpose: Observable
+  #   capability: muon_gm2
 
-  - purpose: LogLike
-    capability: lnL_gm2
+  # - purpose: LogLike
+  #   capability: lnL_gm2
 
   # - purpose: Observable
   #   capability: RD_oh2
-
+  #
   # # LogLikes  
   # - purpose: LogLike
   #   capability: lnL_oh2
 
-  
-  
-
-  
-  
-
-  
-  
-  
-
 Rules:
   - capability: unimproved_MSSM_spectrum
     type: Spectrum
-    function: get_MSSM_spectrum_SPheno  
-    backends: 
-    - {backend: SPheno, version: 4.0.3}                 
-    
+    function: get_MSSMatQ_spectrum_FS
+
   - capability: MSSM_spectrum
     type: Spectrum
     function: make_MSSM_precision_spectrum_none
 
-  - capability: muon_gm2
-    function: GM2C_SUSY
-
-  - capability: muon_gm2_SM
-    function: gm2_SM_ee
+  # - capability: muon_gm2
+  #   function: GM2C_SUSY
+  #
+  # - capability: muon_gm2_SM
+  #   function: gm2_SM_ee
 
   # - capability: lnL_oh2
   #   function: lnL_oh2_upperlimit
-
+  #
   # - capability: RD_oh2
   #   function: RD_oh2_MicrOmegas
-
+  #
   # - capability: decay_rates
   #   type: DecayTable
   #   function: all_decays
   #   module: DecayBit
-
+  #
   # - capability: Reference_SM_Higgs_decay_rates
   #   function: Ref_SM_Higgs_decays_table
   # - capability: Reference_SM_other_Higgs_decay_rates
@@ -132,18 +118,11 @@ Rules:
   #   function: H_plus_decays
   # - capability: t_decay_rates
   #   function: t_decays
-
+  #
   # - capability: RD_eff_annrate
   #   function: RD_eff_annrate_from_ProcessCatalog
-
+  #
   # - capability: TH_ProcessCatalog
-
-
-
-
-  
-
-  
 
 Logger:
   redirection:
@@ -156,7 +135,6 @@ Logger:
     [Printers]: "printer.log"
     [PrecisionBit]: "prec_bit.log"
     [SpecBit]: "spec_bit.log"
-    [SPheno]: "spheno.log"
 
 KeyValues:
   dependency_resolution:
@@ -165,6 +143,6 @@ KeyValues:
   likelihood:
     model_invalid_for_lnlike_below: -1e6
 
-  default_output_path: "runs/SP_MSSM7atQ/"
+  default_output_path: "runs/FS_MSSM7atQ/"
 
   debug: true

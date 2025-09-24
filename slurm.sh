@@ -1,8 +1,8 @@
 #!/bin/bash -l
 
 #SBATCH --job-name=gambit
-#SBATCH --output=runs/slurm-output/%x-%A/%j.out
-#SBATCH --error=runs/slurm-output/%x-%A/%j.err
+#SBATCH --output=runs/slurm-output/%x/out_%A/out.%a
+#SBATCH --error=runs/slurm-output/%x/err_%A/err.%a
 #SBATCH --array=1-10
 #SBATCH --mem=40G
 #SBATCH --time=1-00:00:00
